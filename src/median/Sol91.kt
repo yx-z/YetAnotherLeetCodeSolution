@@ -1,9 +1,5 @@
 package median
 
-fun main() {
-    println(Sol91().numDecodings("0"))
-}
-
 class Sol91 {
 
     fun numDecodings(s: String): Int {
