@@ -1,6 +1,6 @@
 # YetAnotherLeetCodeSolution
 
-YALCS in Kotlin (...and some Java)
+YALCS in Kotlin (...and some Java). For problem descriptions, use the search box in https://leetcode.com/problemset/all/
 
 In memory of countless hours you and I spent in learning data structures and algorithms.
 
