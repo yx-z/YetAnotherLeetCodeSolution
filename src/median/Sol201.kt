@@ -1,4 +1,4 @@
-package easy
+package median
 
 class Sol201 {
 
