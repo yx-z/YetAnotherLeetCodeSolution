@@ -2,10 +2,6 @@ package median
 
 import kotlin.math.min
 
-fun main() {
-    println(Sol209().minSubArrayLen(11, intArrayOf(1, 2, 3, 4, 5)))
-}
-
 class Sol209 {
 
     fun minSubArrayLen(s: Int, nums: IntArray): Int {
