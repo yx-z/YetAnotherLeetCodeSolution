@@ -25,7 +25,7 @@ class Sol208 {
                 curr = curr.next.firstOrNull { it.char == c }
                     ?: Node(c).apply { curr.next.add(this) }
             }
-            curr.next.add(root) // mark as end of the inserted word
+            curr.next.add(root) // mark the end of `word`
         }
 
         /** Returns if the word is in the trie. */
