@@ -4,7 +4,6 @@ class Sol328 {
 
     class ListNode(var `val`: Int) {
         var next: ListNode? = null
-        override fun toString() = `val`.toString()
     }
 
     fun oddEvenList(head: ListNode?): ListNode? {
