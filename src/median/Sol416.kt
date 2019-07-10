@@ -23,7 +23,7 @@ class Sol416 {
         for (i in n - 2 downTo 0) {
             for (j in 0..t) {
                 dp[i][j] =
-                    dp[i + 1][j] || (j - nums[i] >= 0 && dp[i + 1][j - nums[i]])
+                    dp[i + 1][j] || (j >= nums[i] && dp[i + 1][j - nums[i]])
             }
         }
         return dp[0][t]
