@@ -11,8 +11,8 @@ class Sol494 {
             return 0
         }
         val dp = Array(n) { i ->
-            Array(s + 1) {
-                if (i == n - 1 && nums[i] == it) (if (it == 0) 2 else 1)
+            Array(s + 1) { j ->
+                if (i == n - 1 && nums[i] == j) (if (j == 0) 2 else 1)
                 else 0
             }
         }
