@@ -2,10 +2,6 @@ package median
 
 import kotlin.math.max
 
-fun main() {
-    println(Sol516().longestPalindromeSubseq("ab"))
-}
-
 class Sol516 {
 
     fun longestPalindromeSubseq(s: String): Int {
