@@ -2,25 +2,30 @@ package hard
 
 class Sol146 {
 
+    /**
+     * Your LRUCache object will be instantiated and called as such:
+     * var obj = LRUCache(capacity)
+     * var param_1 = obj.get(key)
+     * obj.put(key,value)
+     */
     class LRUCache(val capacity: Int) {
 
-        class MyList {
+        // doubly linked list of int that takes O(1) to append and remove
+        private class MyList {
 
-            class Node(val k: Int) {
+            private class Node(val k: Int) {
                 var pre: Node? = null
                 var nex: Node? = null
             }
 
             var size = 0
-            val seen = HashMap<Int, Node>()
-            val head = Node(-1)
-            var tail = head
+            private val seen = HashMap<Int, Node>()
+            private val head = Node(-1)
+            private var tail = head
 
             fun remove(k: Int) {
                 val n = seen[k]!!
-                if (n == tail) {
-                    tail = tail.pre!!
-                }
+                if (n == tail) tail = tail.pre!!
                 n.pre!!.nex = n.nex
                 n.nex?.pre = n.pre
                 seen.remove(k)
@@ -36,27 +41,23 @@ class Sol146 {
                 size++
             }
 
-            fun contains(v: Int) = seen.contains(v)
+            operator fun contains(v: Int) = seen.contains(v)
 
             fun first() = head.nex!!.k
         }
 
-        val data = HashMap<Int, Int>()
-        val keys = MyList()
+        private val data = HashMap<Int, Int>()
+        private val keys = MyList()
 
         fun get(key: Int) = if (data.containsKey(key)) {
             keys.remove(key)
             keys.append(key)
             data[key]!!
-        } else {
-            -1
-        }
+        } else -1
 
         fun put(key: Int, value: Int) {
             data[key] = value
-            if (keys.contains(key)) {
-                keys.remove(key)
-            }
+            if (key in keys) keys.remove(key)
             keys.append(key)
             if (keys.size > capacity) {
                 val k0 = keys.first()
@@ -65,11 +66,4 @@ class Sol146 {
             }
         }
     }
-
-    /**
-     * Your LRUCache object will be instantiated and called as such:
-     * var obj = LRUCache(capacity)
-     * var param_1 = obj.get(key)
-     * obj.put(key,value)
-     */
 }
