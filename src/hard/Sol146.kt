@@ -13,8 +13,7 @@ class Sol146 {
         // doubly linked list of int that takes O(1) to append and remove
         private class MyList {
 
-            private class Node(val k: Int) {
-                var pre: Node? = null
+            private class Node(val k: Int, var pre: Node? = null) {
                 var nex: Node? = null
             }
 
@@ -33,15 +32,12 @@ class Sol146 {
             }
 
             fun append(k: Int) {
-                tail.nex = Node(k).apply {
-                    pre = tail
-                    seen[k] = this
-                }
+                tail.nex = Node(k, tail).apply { seen[k] = this }
                 tail = tail.nex!!
                 size++
             }
 
-            operator fun contains(v: Int) = seen.contains(v)
+            operator fun contains(v: Int) = v in seen
 
             fun first() = head.nex!!.k
         }
@@ -49,7 +45,7 @@ class Sol146 {
         private val data = HashMap<Int, Int>()
         private val keys = MyList()
 
-        fun get(key: Int) = if (data.containsKey(key)) {
+        fun get(key: Int) = if (key in data) {
             keys.remove(key)
             keys.append(key)
             data[key]!!
