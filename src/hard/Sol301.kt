@@ -14,10 +14,11 @@ class Sol301 {
     }
 
     fun CharArray.remove(count: Int, start: Int = 0) {
-        if (count == 0) {
-            if (isValid()) ans.add(filterNot { it == '_' }.joinToString(""))
-        } else {
-            if (start + count <= size) {
+        when {
+            count == 0 && isValid() -> ans.add(
+                filterNot { it == '_' }.joinToString("")
+            )
+            start + count <= size -> {
                 copyOf().apply { this[start] = '_' }
                     .remove(count - 1, start + 1)
                 remove(count, start + 1)
