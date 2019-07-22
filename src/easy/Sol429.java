@@ -3,7 +3,6 @@ package easy;
 import java.util.*;
 
 public class Sol429 {
-
     Map<Node, Integer> nodeLevel = new HashMap<>();
 
     public List<List<Integer>> levelOrder(Node root) {
