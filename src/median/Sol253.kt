@@ -10,4 +10,3 @@ class Sol253 {
         return arr.max()!!
     }
 }
-
