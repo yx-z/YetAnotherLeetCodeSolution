@@ -2,6 +2,7 @@ package hard
 
 class Sol10 {
 
+    // O(mn) dp
     fun isMatch(s: String, p: String): Boolean {
         val m = s.length
         val n = p.length
