@@ -1,6 +1,7 @@
 package median
 
 class Sol900Kt {
+
     class RLEIterator(val A: IntArray) {
         val size = A.size
         var idx = 0
