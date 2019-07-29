@@ -5,8 +5,7 @@ import kotlin.math.min
 
 class Sol127 {
 
-    // G = (V = {beg} UNION dic, E = {(u, v) : d(u, v) == 1})
-    // return G.bfs(beg, end)
+    // bfs from beg to end on (V={beg} UNION dic, E={(u,v) : d(u,v) == 1})
     fun ladderLength(beg: String, end: String, dic: List<String>): Int {
         val v = dic.toHashSet().apply { add(beg) }
         if (end !in v) return 0
@@ -19,7 +18,7 @@ class Sol127 {
         while (q.isNotEmpty()) {
             val u = q.poll()
             s.add(u)
-            e.getValue(u).filter { it !in s }.forEach {
+            e.getValue(u).filterNot { it in s }.forEach {
                 l[it] = min(l[it] ?: Int.MAX_VALUE, 1 + l[u]!!)
                 q.add(it)
             }
