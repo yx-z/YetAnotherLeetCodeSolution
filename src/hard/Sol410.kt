@@ -6,7 +6,7 @@ class Sol410 {
 
     fun splitArray(ns: IntArray, m: Int): Int {
         val n = ns.size
-        // dp[i][j] where i in 0 until n, j in 1..m :
+        // dp[i][j] (where i in 0 until n, j in 1..m) =
         // min possible max subarray sum for ns[0..i] split into j chunks
         // dp[i][1] = sum of ns[0..i]
         val dp = Array(n) { IntArray(m + 1) }.apply { this[0][1] = ns[0] }
