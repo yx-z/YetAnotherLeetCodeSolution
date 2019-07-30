@@ -7,7 +7,7 @@ class Sol410 {
     fun splitArray(ns: IntArray, m: Int): Int {
         val n = ns.size
         // dp[i][j] where i in 0 until n, j in 1..m :
-        // min possible max subarr sum for ns[0..i] split into j chunks
+        // min possible max subarray sum for ns[0..i] split into j chunks
         // dp[i][1] = sum of ns[0..i]
         val dp = Array(n) { IntArray(m + 1) }.apply { this[0][1] = ns[0] }
         for (i in 1 until n) dp[i][1] = dp[i - 1][1] + ns[i]
@@ -17,12 +17,13 @@ class Sol410 {
             for (i in j until n) {
                 // find a cut k in j - 2 until i : split ns[0..k] into j - 1
                 // chunks and ns[k + 1..i] into the j-th chunk : minimizes
-                // the max subarr sum
-                val k = (j - 2 until i)
-                    .minBy { max(dp[it][j - 1], dp[i][1] - dp[it][1]) }!!
-                dp[i][j] = max(dp[k][j - 1], dp[i][1] - dp[k][1])
+                // the max subarray sum and store it in dp[i][j]
+                dp[i][j] = (j - 2 until i)
+                    .map { k -> max(dp[k][j - 1], dp[i][1] - dp[k][1]) }.min()!!
             }
         }
+        // O(mn^2)
+        // min possible max subarray sum ns[0 until n] split into m chunks
         return dp[n - 1][m]
     }
 }
