@@ -1,0 +1,28 @@
+package hard
+
+import kotlin.math.max
+
+class Sol410 {
+
+    fun splitArray(ns: IntArray, m: Int): Int {
+        val n = ns.size
+        // dp[i][j] where i in 0 until n, j in 1..m :
+        // min possible max subarr sum for ns[0..i] split into j chunks
+        // dp[i][1] = sum of ns[0..i]
+        val dp = Array(n) { IntArray(m + 1) }.apply { this[0][1] = ns[0] }
+        for (i in 1 until n) dp[i][1] = dp[i - 1][1] + ns[i]
+        for (j in 2..m) {
+            // ns[0 until j] into j chunks => each chunk has length 1
+            dp[j - 1][j] = max(dp[j - 2][j - 1], ns[j - 1])
+            for (i in j until n) {
+                // find a cut k in j - 2 until i : split ns[0..k] into j - 1
+                // chunks and ns[k + 1..i] into the j-th chunk : minimizes
+                // the max subarr sum
+                val k = (j - 2 until i)
+                    .minBy { max(dp[it][j - 1], dp[i][1] - dp[it][1]) }!!
+                dp[i][j] = max(dp[k][j - 1], dp[i][1] - dp[k][1])
+            }
+        }
+        return dp[n - 1][m]
+    }
+}
