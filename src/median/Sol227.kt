@@ -6,28 +6,22 @@ class Sol227 {
 
     fun calculate(s: String): Int {
         val s = "+" + s.replace(" ", "")
-        val r = Stack<Int>()
         val par = { i: Int ->
             var p = i
             while (p < s.length && s[p].isDigit()) p++
-            p - 1 to s.substring(i, p).toInt()
+            p to s.substring(i, p).toInt()
         }
+        val r = Stack<Int>()
         var i = 0
         while (i < s.length) {
-            val c = s[i]
-            when (c) {
-                '+', '-' -> {
-                    val (idx, num) = par(i + 1)
-                    i = idx
-                    r.push(if (c == '+') num else -num)
-                }
-                '*', '/' -> {
-                    val (idx, num) = par(i + 1)
-                    i = idx
-                    r.push(if (c == '*') r.pop() * num else r.pop() / num)
-                }
+            val (idx, num) = par(i + 1)
+            when (s[i]) {
+                '+' -> r.push(num)
+                '-' -> r.push(-num)
+                '*' -> r.push(r.pop() * num)
+                '/' -> r.push(r.pop() / num)
             }
-            i++
+            i = idx
         }
         while (r.size > 1) {
             val n1 = r.pop()
