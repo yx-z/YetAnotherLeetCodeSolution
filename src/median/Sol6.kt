@@ -5,15 +5,13 @@ class Sol6 {
     fun convert(s: String, numRows: Int): String {
         if (numRows == 1) return s
         val grid = Array(numRows) { StringBuilder() }
-        var i = 0
-        var d = true
-        var j = 0
-        while (i < s.length) {
-            grid[j].append(s[i])
-            if (j == numRows - 1) d = false
-            if (j == 0) d = true
-            if (d) j++ else j--
-            i++
+        var goDown = true
+        var row = 0
+        for (c in s) {
+            grid[row].append(c)
+            if (row == numRows - 1) goDown = false
+            if (row == 0) goDown = true
+            if (goDown) row++ else row--
         }
         return grid.joinToString("")
     }
