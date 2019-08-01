@@ -16,10 +16,10 @@ class Sol84 {
                 s.push(i)
                 i++
             } else {
-                val top = s.pop()
-                val area = hs[top] *
-                        if (s.isEmpty()) i else ((i - 1) - (s.peek() + 1) + 1)
-                m = max(m, area)
+                m = max(
+                    m, hs[s.pop()] * if (s.isEmpty()) i else
+                        ((i - 1) - (s.peek() + 1) + 1)
+                )
             }
         }
         return m
