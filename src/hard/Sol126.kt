@@ -1,16 +1,6 @@
 package hard
 
 import java.util.*
-import kotlin.collections.ArrayList
-
-fun main() {
-    println(
-        Sol126().findLadders(
-            "hit", "cog",
-            listOf("hot", "dot", "dog", "lot", "log", "cog")
-        )
-    )
-}
 
 class Sol126 {
 
