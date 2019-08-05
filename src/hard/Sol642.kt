@@ -1,17 +1,6 @@
 package hard
 
 import java.util.*
-import kotlin.collections.ArrayList
-
-fun main() {
-    val sys = Sol642.AutocompleteSystem(
-        arrayOf("i love you", "island", "ironman", "i love leetcode"),
-        intArrayOf(5, 3, 2, 2)
-    )
-    println(sys.input('i'))
-    println(sys.input(' '))
-    println(sys.input('l'))
-}
 
 class Sol642 {
 
