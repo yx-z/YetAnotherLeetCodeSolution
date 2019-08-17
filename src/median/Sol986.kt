@@ -23,6 +23,6 @@ class Sol986 {
         return res.toTypedArray()
     }
 
-    fun IntArray.component1() = this[0]
-    fun IntArray.component2() = this[1]
+    operator fun IntArray.component1() = this[0]
+    operator fun IntArray.component2() = this[1]
 }
