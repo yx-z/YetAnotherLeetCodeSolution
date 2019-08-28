@@ -9,6 +9,7 @@ class Sol239 {
         val n = nums.size
         if (n == 0 || k > n) return IntArray(0)
         val res = ArrayList<Int>()
+        // max heap
         val heap = PriorityQueue<Int>(Comparator { a, b -> a - b })
         for (i in 0 until k) heap.add(nums[i])
         res.add(heap.peek())
