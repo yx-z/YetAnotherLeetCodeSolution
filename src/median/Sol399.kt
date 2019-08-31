@@ -8,9 +8,8 @@ class Sol399 {
         qs: List<List<String>>
     ): DoubleArray {
         val G = HashMap<String, HashMap<String, Double>>()
-        for (i in eqs.indices) {
-            val (s, e) = eqs[i]
-            val v = vs[i]
+        eqs.zip(vs.toList()).forEach { (ls, v) ->
+            val (s, e) = ls
             if (s !in G) G[s] = HashMap()
             if (e !in G) G[e] = HashMap()
             G[s]!![s] = 1.0
@@ -18,11 +17,11 @@ class Sol399 {
             G[s]!![e] = v
             G[e]!![s] = 1 / v
         }
-        val visited = HashSet<String>()
+        val seen = HashSet<String>()
         fun build(s: String) {
-            if (s !in visited) {
-                visited.add(s)
-                G[s]!!.keys.filterNot { it in visited }.forEach { build(it) }
+            if (s !in seen) {
+                seen.add(s)
+                G[s]!!.keys.filterNot { it in seen }.forEach { build(it) }
                 G[s]!!.keys.filterNot { it == s }.forEach { e ->
                     G[e]!!.keys.filterNot { it == s }.forEach { o ->
                         G[s]!![o] = G[s]!![e]!! * (G[e]!![o]!!)
