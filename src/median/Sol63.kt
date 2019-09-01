@@ -4,7 +4,6 @@ class Sol63 {
 
     fun uniquePathsWithObstacles(G: Array<IntArray>): Int {
         val m = G.size
-        if (m == 0) return 0
         val n = G[0].size
         val dp = Array(m) { IntArray(n) }
         dp[m - 1][n - 1] = 1 - G[m - 1][n - 1]
