@@ -29,36 +29,20 @@ class Sol845 {
     fun longestMountain2(A: IntArray): Int {
         val n = A.size
         if (n <= 2) return 0
-        var max = 0
         var lo = 0
-        var hi = 1
-        while (hi < n) {
-            if (hi < n && A[hi] <= A[hi - 1]) {
-                lo++
-                hi++
-                continue
-            }
-            while (hi < n && A[hi] > A[hi - 1]) hi++
-            // hi == n || A[hi] <= A[hi - 1]
-            if (hi == n) break
-            // A[hi] <= A[hi - 1]
-            if (A[hi] == A[hi - 1]) {
-                lo = hi
-                hi++
+        var max = 0
+        while (lo < n) {
+            var pk = lo
+            while (pk + 1 < n && A[pk + 1] > A[pk]) pk++
+            if (pk + 1 == n) break
+            if (A[pk + 1] == A[pk] || lo == pk) {
+                lo = pk + 1
             } else {
-                // A[hi] < A[hi - 1] => A[hi - 1] is a peak
-                while (hi < n && A[hi] < A[hi - 1]) hi++
-                // hi == n || A[hi] >= A[hi - 1]
-                max = max(max, hi - lo)
-                if (hi == n) break
-                // A[hi] >= A[hi - 1]
-                if (A[hi] == A[hi - 1]) {
-                    lo = hi
-                    hi++
-                } else {
-                    // A[hi] > A[hi - 1]
-                    lo = hi - 1
-                }
+                var hi = pk
+                while (hi + 1 < n && A[hi + 1] < A[hi]) hi++
+                max = max(max, hi - lo + 1)
+                if (hi + 1 == n) break
+                lo = if (A[hi + 1] == A[hi]) hi + 1 else hi
             }
         }
         return max
