@@ -28,16 +28,14 @@ class Sol845 {
     // 2pointers: O(n) time, O(1) space
     fun longestMountain2(A: IntArray): Int {
         val n = A.size
-        if (n <= 2) return 0
         var lo = 0
         var max = 0
         while (lo < n) {
             var pk = lo
             while (pk + 1 < n && A[pk + 1] > A[pk]) pk++
             if (pk + 1 == n) break
-            if (A[pk + 1] == A[pk] || lo == pk) {
-                lo = pk + 1
-            } else {
+            if (A[pk + 1] == A[pk] || lo == pk) lo = pk + 1
+            else {
                 var hi = pk
                 while (hi + 1 < n && A[hi + 1] < A[hi]) hi++
                 max = max(max, hi - lo + 1)
