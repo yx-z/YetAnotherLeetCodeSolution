@@ -3,35 +3,21 @@ package median
 import kotlin.math.min
 
 class Sol209 {
+    fun minSubArrayLen(s: Int, A: IntArray): Int {
+        var lo = 0
+        var hi = 0
+        var sum = 0
+        var min = Int.MAX_VALUE
+        while (hi < A.size) {
+            sum += A[hi]
+            hi++
 
-    fun minSubArrayLen(s: Int, nums: IntArray): Int {
-        if (nums.sum() < s) {
-            return 0
-        }
-
-        val n = nums.size
-        var start = 0
-        var end = 0
-        var sum = nums[0]
-        var count = Int.MAX_VALUE
-        while (start < n) {
-            if (sum >= s) {
-                count = min(count, end - start + 1)
-                if (count == 1) {
-                    return 1
-                }
-                start++
-                sum -= nums[start - 1]
-            } else {
-                when {
-                    end < n - 1 -> {
-                        end++
-                        sum += nums[end]
-                    }
-                    end == n - 1 && sum < s -> return count
-                }
+            while (sum >= s) {
+                min = min(min, hi - lo)
+                sum -= A[lo]
+                lo++
             }
         }
-        return count
+        return if (min == Integer.MAX_VALUE) 0 else min
     }
 }
