@@ -2,21 +2,28 @@ package median
 
 class Sol15 {
 
-    fun threeSum(nums: IntArray): List<List<Int>> {
-        val ans = HashSet<List<Int>>()
-        for (i in nums.indices) {
-            val seen = HashMap<Int, Int>() // <num, idx>
-            for (j in i + 1 until nums.size) {
-                if (j != i) {
-                    val key = -nums[i] - nums[j]
-                    if (seen.containsKey(key)) {
-                        ans.add(listOf(nums[i], key, nums[j]).sorted())
-                    } else {
-                        seen[nums[j]] = j
+    fun threeSum(A: IntArray): List<List<Int>> {
+        A.sort()
+        val res = HashSet<List<Int>>()
+        val n = A.size
+        for (i in 0..n - 3) {
+            val cur = A[i]
+            if (cur > 0) break
+            var lo = i + 1
+            var hi = n - 1
+            while (lo < hi) {
+                val sum = A[lo] + A[hi] + cur
+                when {
+                    sum == 0 -> {
+                        res.add(listOf(A[lo], A[hi], cur).sorted())
+                        lo++
+                        hi--
                     }
+                    sum > 0 -> hi--
+                    sum < 0 -> lo++
                 }
             }
         }
-        return ans.toList()
+        return res.toList()
     }
 }
