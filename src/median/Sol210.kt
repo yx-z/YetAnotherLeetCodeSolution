@@ -14,7 +14,7 @@ class Sol210 {
         val roots = inG.indices.filter { inG[it].size == 0 }.toMutableList()
         while (roots.isNotEmpty()) {
             val copy = roots.toList()
-            while (roots.isNotEmpty()) res.add(roots.removeAt(0)))
+            while (roots.isNotEmpty()) res.add(roots.removeAt(0))
             copy.forEach { pre ->
                 outG[pre].forEach { suc ->
                     inG[suc].remove(pre)
