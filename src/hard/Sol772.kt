@@ -6,7 +6,7 @@ class Sol772 {
     fun calculate(s: String, i: Int = 0): Pair<Int, Int> {
         val r = Stack<Int>()
         var op = '+'
-        var n = 0
+        var n: Int
         var i = i
         while (i < s.length && op != ')') {
             if (s[i] == '(') {
