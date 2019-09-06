@@ -2,10 +2,6 @@ package median
 
 import java.lang.Integer.max
 
-fun main() {
-    Sol845().longestMountain2(intArrayOf(2, 1, 4, 7, 3, 2, 5))
-}
-
 class Sol845 {
 
     // dp: O(n) time, O(n) space

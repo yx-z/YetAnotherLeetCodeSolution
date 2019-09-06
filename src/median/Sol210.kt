@@ -13,7 +13,7 @@ class Sol210 {
         val res = ArrayList<Int>()
         val roots = inG.indices.filter { inG[it].size == 0 }.toMutableList()
         while (roots.isNotEmpty()) {
-            val copy = roots.toList()
+            val copy = roots.toSet()
             while (roots.isNotEmpty()) res.add(roots.removeAt(0))
             copy.forEach { pre ->
                 outG[pre].forEach { suc ->
