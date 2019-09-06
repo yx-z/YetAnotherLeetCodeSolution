@@ -13,9 +13,10 @@ class Sol295 {
     class MedianFinder {
 
         /** initialize your data structure here. */
-        val max = PriorityQueue<Int>() // min heap for A[n/2+1..n]
-        val min =
-            PriorityQueue<Int>(Collections.reverseOrder()) // max heap A[1..n/2]
+        // min heap for A[n/2+1..n]
+        val max = PriorityQueue<Int>()
+        // max heap for A[1..n/2]
+        val min = PriorityQueue<Int>(Collections.reverseOrder())
         val even: Boolean get() = (min.size + max.size) % 2 == 0
 
         fun addNum(num: Int) {
