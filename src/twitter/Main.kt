@@ -1,9 +1,10 @@
 package twitter
 
 import java.util.*
+import kotlin.collections.HashMap
 import kotlin.math.abs
-import kotlin.math.max
 import kotlin.math.min
+
 
 fun main() {
 
@@ -26,13 +27,23 @@ fun minK(qs: IntArray): Int {
     return (1..n).first { 2 * sum[it - 1] > sum[n - 1] }
 }
 
+fun countManipulations(s1: String, s2: String): Int {
+    var count = 0
+    val chars = IntArray(26)
+    for (element in s1) chars[element - 'a']++
+    for (element in s2) if (chars[element - 'a']-- <= 0) count++
+    return count
+}
+
 fun toAnagram(a: String, b: String): Int {
-    val freq = HashMap<Char, Int>()
-    b.forEach { freq[it] = 1 + (freq[it] ?: 0) }
-    a.forEach { freq[it] = (freq[it] ?: 0) - 1 }
-    val neg = -freq.values.filter { it < 0 }.sum()
-    val pos = freq.values.filter { it > 0 }.sum()
-    return max(pos, neg)
+    val freqA = a.groupBy { it }.mapValues { it.value.size }.toMutableMap()
+    val freqB = b.groupBy { it }.mapValues { it.value.size }.toMutableMap()
+    freqA.keys.filter { freqA[it] == freqB[it] }.forEach {
+        freqA.remove(it)
+        freqB.remove(it)
+    }
+    return if (freqA.values.sorted() != freqB.values.sorted()) -1
+    else freqA.size
 }
 
 fun minCover(len: Int, water: Array<Pair<Int, Int>>): Int {
@@ -102,4 +113,25 @@ fun usrId(arr: IntArray): Int {
     }
     println(arr.contentToString())
     return arr.sum()
+}
+
+fun discount(ori: IntArray) {
+    val n = ori.size
+    val off = IntArray(n) { ori[it] }
+    val s = Stack<Int>()
+    for ((idx, num) in ori.withIndex()) {
+        while (s.isNotEmpty() && ori[s.peek()] >= num) {
+            val i = s.pop()
+            off[i] = ori[i] - num
+        }
+        s.add(idx)
+    }
+    println(off.sum())
+    val sb = StringBuilder()
+    while (s.isNotEmpty()) sb.insert(0, "${s.pop()} ")
+    println(sb)
+}
+
+fun gameEvents() {
+
 }
