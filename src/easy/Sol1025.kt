@@ -27,6 +27,6 @@ class Sol1025 {
     // else N+1 is odd. any number, x, the first player picks must be odd.
     // otherwise N+1 as a multiple of even number implies N+1 is even.
     // so the first player updates the number as N+1 - x, which is even.
-    // since N+1 - x < N, by hypotheis, the second player must win
+    // since N+1 - x < N, by hypothesis, the second player must win
     fun game(N: Int) = N % 2 == 0
 }
