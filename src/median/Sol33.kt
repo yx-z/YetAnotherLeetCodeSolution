@@ -17,4 +17,25 @@ class Sol33 {
         }
         return -1
     }
+
+    fun search2(nums: IntArray, target: Int): Int {
+        if (nums.isEmpty()) return -1
+        if (nums[0] == target) return 0
+        val tarLeft = nums[0] < target
+        var lo = 0
+        var hi = nums.size - 1
+        while (lo <= hi) {
+            val m = lo + (hi - lo) / 2
+            val cur = nums[m]
+            if (cur == target) return m
+            val curLeft = nums[0] <= cur
+            when {
+                (curLeft && tarLeft) || (!curLeft && !tarLeft) ->
+                    if (cur < target) lo++ else hi--
+                tarLeft -> hi--
+                else -> lo++
+            }
+        }
+        return -1
+    }
 }

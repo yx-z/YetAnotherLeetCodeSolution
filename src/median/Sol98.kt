@@ -20,4 +20,15 @@ class Sol98 {
             inorder(root.right)
         }
     }
+
+    fun isValidBST2(
+        root: TreeNode?,
+        lo: Long = Int.MIN_VALUE - 1L,
+        hi: Long = Int.MAX_VALUE + 1L
+    ): Boolean {
+        if (root == null) return true
+        if (root.`val` !in lo + 1 until hi) return false
+        return isValidBST2(root.left, lo, root.`val`.toLong()) &&
+                isValidBST2(root.right, root.`val`.toLong(), hi)
+    }
 }
