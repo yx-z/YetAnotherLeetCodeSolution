@@ -8,7 +8,7 @@ class Sol735 {
         val dq = LinkedList<Int>()
         for (ast in asteroids) {
             var cur: Int? = ast
-            while (dq.isNotEmpty() && dq.peekLast() > 0 && cur!! < 0) {
+            while (dq.isNotEmpty() && 0 in cur!! + 1 until dq.peekLast()) {
                 if (dq.peekLast() + cur == 0) {
                     dq.removeLast()
                     cur = null
