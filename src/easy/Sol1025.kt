@@ -7,8 +7,9 @@ class Sol1025 {
     val memo = hashMapOf(1 to false)
 
     fun divisorGame(N: Int): Boolean {
-        if (N !in memo) memo[N] =
-            (1..N / 2).filter { N % it == 0 }.any { !divisorGame(N - it) }
+        if (N !in memo)
+            memo[N] = (1..N / 2).filter { N % it == 0 }
+                .any { !divisorGame(N - it) }
         return memo[N]!!
     }
 
