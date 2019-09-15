@@ -36,26 +36,37 @@ public class Sol341 {
      * while (i.hasNext()) v[f()] = i.next();
      */
     public class NestedIterator implements Iterator<Integer> {
-        Stack<NestedInteger> s = new Stack<>();
+        private Stack<NestedInteger> src = new Stack<>();
 
+        // we shall not copy data in Iterator Pattern
         public NestedIterator(List<NestedInteger> nestedList) {
-            build(nestedList);
+            pushList(nestedList);
         }
 
-        private void build(List<NestedInteger> nestedList) {
-            for (int i = nestedList.size() - 1; i >= 0; i--)
-                if (nestedList.get(i).isInteger()) s.add(nestedList.get(i));
-                else build(nestedList.get(i).getList());
-        }
-
+        // instead, we shall do work while actually getting data
         @Override
         public Integer next() {
-            return s.pop().getInteger();
+            return src.pop().getInteger();
         }
 
         @Override
         public boolean hasNext() {
-            return !s.isEmpty();
+            // make sure that the top element is an int so that
+            // we can get it directly in `next()`
+            while (!src.isEmpty()) {
+                NestedInteger peek = src.peek();
+                if (peek.isInteger()) {
+                    return true;
+                } else {
+                    pushList(src.pop().getList());
+                }
+            }
+            return false;
+        }
+
+        private void pushList(List<NestedInteger> curList) {
+            for (int i = curList.size() - 1; i >= 0; i--)
+                src.push(curList.get(i));
         }
     }
 }
