@@ -1,6 +1,7 @@
 package hard
 
 import java.util.*
+import kotlin.collections.ArrayList
 
 class Sol301 {
     val ans = HashSet<String>()
@@ -35,5 +36,33 @@ class Sol301 {
             }
         }
         return stack.isEmpty()
+    }
+
+    val res = ArrayList<String>()
+    fun redo(s: String): List<String> {
+        s.dfs()
+        return res
+    }
+
+    fun String.dfs(
+        lastI: Int = 0, lastJ: Int = 0,
+        open: Char = '(', close: Char = ')'
+    ) {
+        var count = 0
+        var i = lastI
+        while (i < length && count >= 0) {
+            if (this[i] == open) count++
+            if (this[i] == close) count--
+            i++
+        }
+        if (count >= 0) {
+            if (open == '(') reversed().dfs(0, 0, close, open)
+            else res.add(reversed())
+        } else {
+            i--
+            for (j in lastJ..i)
+                if (this[j] == close && (j == lastJ || this[j - 1] != close))
+                    (substring(0, j) + substring(j + 1)).dfs(i, j, open, close)
+        }
     }
 }
