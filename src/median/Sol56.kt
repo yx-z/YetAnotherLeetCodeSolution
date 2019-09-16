@@ -10,21 +10,14 @@ class Sol56 {
         }
 
         intervals.sortWith(Comparator { i1, i2 ->
-            if (i1[0] == i2[0]) {
-                i1[1] - i2[1]
-            } else {
-                i1[0] - i2[0]
-            }
+            if (i1[0] == i2[0]) i1[1] - i2[1] else i1[0] - i2[0]
         })
 
         val ls = arrayListOf(intervals[0])
         for (int in intervals) {
             val last = ls.last()
-            if (int[0] > last[1]) {
-                ls.add(int)
-            } else {
-                last[1] = max(last[1], int[1])
-            }
+            if (int[0] > last[1]) ls.add(int)
+            else last[1] = max(last[1], int[1])
         }
         return ls.toTypedArray()
     }

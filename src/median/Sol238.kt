@@ -22,4 +22,21 @@ class Sol238 {
         }
         return res
     }
+
+    // only allocate result space
+    fun prod(nums: IntArray): IntArray {
+        val n = nums.size // n > 1 as given
+        val res = IntArray(n).apply {
+            this[0] = 1
+            this[1] = nums[0]
+        }
+        for (i in 2 until n) res[i] = res[i - 1] * nums[i - 1]
+        // now res[i] = prod(nums[0 until i])
+        var r = 1
+        for (i in n - 1 downTo 0) {
+            res[i] *= r
+            r *= nums[i]
+        }
+        return res
+    }
 }
