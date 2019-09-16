@@ -28,4 +28,40 @@ class Sol76 {
         }
         return if (h > l) s.substring(l, h) else ""
     }
+
+    fun redo(s: String, t: String): String {
+        val freqT = t.groupingBy { it }.eachCount().toMutableMap()
+        var lo = 0
+        var hi = 0
+        var numCharSatisfied = freqT.size
+        var minStart = -1
+        var minLength = Int.MAX_VALUE
+        while (hi < s.length) {
+            val hiChar = s[hi]
+            if (hiChar in freqT) {
+                freqT[hiChar] = freqT.getValue(hiChar) - 1
+                if (freqT[hiChar] == 0) {
+                    numCharSatisfied--
+                }
+            }
+            while (numCharSatisfied == 0) {
+                val curLen = hi - lo + 1
+                if (curLen < minLength) {
+                    minLength = curLen
+                    minStart = lo
+                }
+                val loChar = s[lo]
+                if (loChar in freqT) {
+                    freqT[loChar] = freqT[loChar]!! + 1
+                    if (freqT[loChar] == 1) {
+                        numCharSatisfied++
+                    }
+                }
+                lo++
+            }
+            hi++
+        }
+        return if (minStart == -1) ""
+        else s.substring(minStart, minStart + minLength)
+    }
 }
