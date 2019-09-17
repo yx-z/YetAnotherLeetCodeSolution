@@ -2,6 +2,7 @@ package median;
 
 public class Sol116 {
 
+    // recursive, O(n) space - implicit stacks
     public Node connect(Node root) {
         if (root == null) return null;
         conn(root.left, root.right);
@@ -14,6 +15,24 @@ public class Sol116 {
         conn(right.left, right.right);
         conn(left.right, right.left);
         left.next = right;
+    }
+
+    // iterative O(1) space
+    public Node redo(Node root) {
+        Node levelStart = root;
+        while (levelStart != null) {
+            // cur = leftmost node in each level
+            Node parent = levelStart;
+            while (parent != null) {
+                if (parent.left != null) parent.left.next = parent.right;
+                if (parent.right != null && parent.next != null)
+                    parent.right.next = parent.next.left;
+                parent = parent.next;
+            }
+            levelStart = levelStart.left;
+        }
+
+        return root;
     }
 
     class Node {
