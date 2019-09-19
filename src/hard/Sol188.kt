@@ -17,6 +17,7 @@ class Sol188 {
         val P = Array(n) {
             Array(k + 1) { IntArray(2) { Int.MIN_VALUE / 2 } }
         }
+        P[0][0][0] = 0
         P[0][0][1] = -prices[0]
         for (i in 1 until n) {
             P[i][0][0] = 0

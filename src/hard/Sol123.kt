@@ -20,6 +20,7 @@ class Sol123 {
         // on day 0, we can either buy or do nothing, but not sell
         // with buy, we have not yet finished/sold a transaction,
         // but do have 1 stock in hand
+        P[0][0][0] = 0
         P[0][0][1] = -prices[0]
         for (i in 1 until n) {
             // represents do nothing
