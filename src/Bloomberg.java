@@ -1,7 +1,5 @@
-import java.util.AbstractMap;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Stack;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Bloomberg {
 
@@ -92,8 +90,40 @@ public class Bloomberg {
         return rem;
     }
 
-    public static void main(String[] args) {
+    public static Set<String> find(Set<String> dict, String sub) {
+        return new Trie(dict).containSubstr(sub);
+    }
 
+    public static int[] swap(int[] a1, int[] a2) {
+        int s1 = Arrays.stream(a1).sum();
+        int s2 = Arrays.stream(a2).sum();
+        if (s1 < s2) {
+            int[] tmpArr = a2;
+            a1 = a2;
+            a2 = tmpArr;
+            int tmpSum = s1;
+            s1 = s2;
+            s2 = tmpSum;
+        }
+        // now s1 = sum(a1) >= s2 = sum(a2)
+        int d = s1 - s2;
+        if (d == 0) {
+            // do nothing if valid or find the same element in both arrays
+            // O(n) using hashset seen
+            return null; // mark that we have done nothing
+        }
+        // find an element i in a1 and another element j in a2 :
+        // s1 - i + j = s2 + i - j => i = d / 2 + j, for even d
+        if (d % 2 == 1) return new int[]{-1, -1}; // mark it impossible
+        Set<Integer> seenA2 = Arrays.stream(a2).boxed()
+                .collect(Collectors.toSet());
+        for (int i : a1) {
+            if (seenA2.contains(i - d / 2)) return new int[]{i, i - d / 2};
+        }
+        return new int[]{-1, -1};
+    }
+
+    public static void main(String[] args) {
     }
 
     private static class Node {
@@ -102,6 +132,60 @@ public class Bloomberg {
 
         Node(int i) {
             this.i = i;
+        }
+    }
+
+    private static class Trie {
+        private Node root = new Node('\0');
+        private Map<Node, Set<String>> toStr = new HashMap<>();
+
+        Trie(Set<String> dict) {
+            dict.forEach(s -> {
+                List<Node> pres = new ArrayList<>();
+                pres.add(root);
+                for (char c : s.toCharArray()) {
+                    Node cur;
+                    if (root.nex.containsKey(c)) {
+                        cur = root.nex.get(c);
+                    } else {
+                        cur = new Node(c);
+                        root.nex.put(c, cur);
+                        toStr.put(cur, new HashSet<>());
+                    }
+                    toStr.get(cur).add(s);
+                    pres.forEach(pre -> pre.nex.put(c, cur));
+                    pres.add(cur);
+                }
+            });
+        }
+
+        public Set<String> containSubstr(String sub) {
+            if (sub.isEmpty() || !root.nex.containsKey(sub.charAt(0)))
+                return Collections.emptySet();
+            Node cur = root.nex.get(sub.charAt(0));
+            Set<String> res = new HashSet<>(toStr.get(cur));
+            for (int i = 1; i < sub.length(); i++) {
+                char c = sub.charAt(i);
+                if (!cur.nex.containsKey(c)) return Collections.emptySet();
+                cur = cur.nex.get(c);
+                Node finalCur = cur;
+                res.removeIf(s -> !toStr.get(finalCur).contains(s));
+            }
+            return res;
+        }
+
+        private class Node {
+            char c;
+            Map<Character, Node> nex = new HashMap<>();
+
+            Node(char c) {
+                this.c = c;
+            }
+
+            @Override
+            public String toString() {
+                return String.valueOf(c);
+            }
         }
     }
 }
