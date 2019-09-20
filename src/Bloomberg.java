@@ -123,7 +123,45 @@ public class Bloomberg {
         return new int[]{-1, -1};
     }
 
+    public static int countPeople(int[] enter, int[] exit, int time) {
+        int n = enter.length;
+        if (n == 0 || n != exit.length) return 0;
+        // <critical point, people count>
+        TreeMap<Integer, Integer> freq = new TreeMap<>();
+        int count = 0;
+        freq.put(0, count);
+        int enterIdx = 0;
+        int exitIdx = 0;
+        while (enterIdx < n && exitIdx < n) {
+            if (enter[enterIdx] < exit[exitIdx]) {
+                count++;
+                freq.put(enter[enterIdx], count);
+                enterIdx++;
+            } else {
+                count--;
+                freq.put(exit[exitIdx], count);
+                exitIdx++;
+            }
+        }
+        while (exitIdx < n) {
+            count--;
+            freq.put(exit[exitIdx], count);
+            exitIdx++;
+        }
+        return freq.floorEntry(time).getValue();
+    }
+
+    public static int findUniqueMissing(int[] arr) {
+        // arr has n unique numbers in 1..n+1, find the unique missing number
+        int n = arr.length;
+        int res = 1;
+        for (int i = 2; i <= n + 1; i++) res ^= i;
+        for (int i : arr) res ^= i;
+        return res;
+    }
+
     public static void main(String[] args) {
+
     }
 
     private static class Node {
@@ -174,7 +212,7 @@ public class Bloomberg {
             return res;
         }
 
-        private class Node {
+        private static class Node {
             char c;
             Map<Character, Node> nex = new HashMap<>();
 
