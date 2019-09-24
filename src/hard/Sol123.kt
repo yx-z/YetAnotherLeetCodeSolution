@@ -2,6 +2,7 @@ package hard
 
 import kotlin.math.max
 
+// best time to buy and sell stock series
 class Sol123 {
 
     fun maxProfit(prices: IntArray): Int {

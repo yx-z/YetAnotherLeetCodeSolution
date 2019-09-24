@@ -28,6 +28,12 @@ public class Bloomberg {
         return (josephRec(n - 1, k) + k - 1) % n + 1;
     }
 
+    public static int redoJoseph(int n, int k) {
+        int cur = 0;
+        for (int i = 2; i <= n; i++) cur = (cur + k) % i;
+        return cur + 1;
+    }
+
     public static int findPairMinDiff(int[] arr) {
         int minDiff = Integer.MAX_VALUE;
         Arrays.sort(arr);
@@ -117,9 +123,9 @@ public class Bloomberg {
         if (d % 2 == 1) return new int[]{-1, -1}; // mark it impossible
         Set<Integer> seenA2 = Arrays.stream(a2).boxed()
                 .collect(Collectors.toSet());
-        for (int i : a1) {
-            if (seenA2.contains(i - d / 2)) return new int[]{i, i - d / 2};
-        }
+        for (int i : a1)
+            if (seenA2.contains(i - d / 2))
+                return new int[]{i, i - d / 2};
         return new int[]{-1, -1};
     }
 
@@ -160,9 +166,6 @@ public class Bloomberg {
         return res;
     }
 
-    public static void main(String[] args) {
-
-    }
 
     private static class Node {
         int i;
@@ -219,11 +222,9 @@ public class Bloomberg {
             Node(char c) {
                 this.c = c;
             }
-
-            @Override
-            public String toString() {
-                return String.valueOf(c);
-            }
         }
+    }
+
+    public static void main(String[] args) {
     }
 }
