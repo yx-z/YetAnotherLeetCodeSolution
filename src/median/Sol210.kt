@@ -2,7 +2,8 @@ package median
 
 class Sol210 {
 
-    // topo sort
+    // topological sort
+    // topological order
     fun findOrder(numCourses: Int, prerequisites: Array<IntArray>): IntArray {
         val inG = Array(numCourses) { HashSet<Int>() }
         val outG = Array(numCourses) { HashSet<Int>() }
