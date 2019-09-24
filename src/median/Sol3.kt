@@ -21,4 +21,22 @@ class Sol3 {
         }
         return longest
     }
+
+    fun redo(s: String): Int {
+        val seen = HashMap<Char, Int>()
+        var lo = 0
+        var hi = 0
+        var longest = 0
+        while (hi < s.length) {
+            val hiChar = s[hi]
+            if (hiChar in seen && seen[hiChar]!! >= lo) {
+                lo = seen[hiChar]!! + 1
+            } else {
+                longest = max(longest, hi - lo + 1)
+            }
+            seen[hiChar] = hi
+            hi++
+        }
+        return longest
+    }
 }
