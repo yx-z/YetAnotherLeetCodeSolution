@@ -5,8 +5,15 @@ import java.util.stream.Collectors;
 
 public class Sol297 {
 
+    public static void main(String[] args) {
+        TreeNode root = new TreeNode(1);
+        root.right = new TreeNode(2);
+        root.right.left = new TreeNode(3);
+        System.out.println(new Codec().serialize(root));
+    }
+
     // preorder, recursive, dfs
-    class Codec {
+    static class Codec {
 
         public String serialize(TreeNode root) {
             if (root == null) {
@@ -27,6 +34,21 @@ public class Sol297 {
             root.left = des(data);
             root.right = des(data);
             return root;
+        }
+    }
+
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(val);
         }
     }
 
@@ -56,7 +78,7 @@ public class Sol297 {
         public TreeNode deserialize(String data) {
             List<TreeNode> nodes = Arrays.stream(data.split(",")).map(src -> {
                 if (src.equals("#")) return null;
-                else return new TreeNode(Integer.parseInt(src));
+                return new TreeNode(Integer.parseInt(src));
             }).collect(Collectors.toList());
             TreeNode root = nodes.get(0);
             Queue<TreeNode> q = new LinkedList<>();
@@ -69,16 +91,6 @@ public class Sol297 {
                 if (cur.right != null) q.add(cur.right);
             }
             return root;
-        }
-    }
-
-    class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
         }
     }
 }
