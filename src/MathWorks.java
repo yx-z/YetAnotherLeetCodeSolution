@@ -36,7 +36,7 @@ public class MathWorks {
         }).min().orElse(-1);
     }
 
-    public static List<int[][]> gen(int w, int h, int n) {
+    private static List<int[][]> gen(int w, int h, int n) {
         List<int[][]> res = new ArrayList<>(w * h);
         if (n == 1) {
             for (int r = 0; r < h; r++) {
