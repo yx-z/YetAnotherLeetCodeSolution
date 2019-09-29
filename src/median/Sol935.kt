@@ -1,9 +1,5 @@
 package median
 
-fun main() {
-    println(Sol935().spaceOpt(3))
-}
-
 class Sol935 {
     val BASE = 10
     val RANGE = 0 until BASE
