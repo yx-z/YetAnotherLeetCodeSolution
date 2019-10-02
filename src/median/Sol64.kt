@@ -13,4 +13,16 @@ class Sol64 {
             M[r][c] += min(M[r + 1][c], M[r][c + 1])
         return M[0][0]
     }
+
+    fun spaceOpt(G: Array<IntArray>): Int {
+        val (m, n) = G.size to G[0].size
+        var x = IntArray(n) { G[m - 1][it] }
+        for (c in n - 2 downTo 0) x[c] += x[c + 1]
+        for (r in m - 2 downTo 0) {
+            val p = IntArray(n) { G[r][it] }.apply { this[n - 1] += x[n - 1] }
+            for (c in n - 2 downTo 0) p[c] += min(p[c + 1], x[c])
+            x = p
+        }
+        return x[0]
+    }
 }
