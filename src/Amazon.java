@@ -1,7 +1,6 @@
 import java.util.*;
 
 public class Amazon {
-
     private static int time;
     private static List<Integer>[] graph;
     private static int[] low; // low[u] = lowest label u can reach
@@ -173,8 +172,51 @@ public class Amazon {
         return dummy.next;
     }
 
+    public static boolean isSubtree(TreeNode s, TreeNode t) {
+        if (s == null) {
+            return t == null;
+        }
+        if (isSameTree(s, t)) {
+            return true;
+        }
+        return isSubtree(s.left, t) || isSubtree(s.right, t);
+    }
+
+    private static boolean isSameTree(TreeNode s, TreeNode t) {
+        if (s == null && t == null) {
+            return true;
+        }
+        if (s == null || t == null) {
+            return false;
+        }
+        if (s.val != t.val) {
+            return false;
+        }
+        return isSameTree(s.left, t.left) && isSameTree(s.right, t.right);
+    }
+
     public static void main(String[] args) {
-        System.out.println(twoSum(new int[]{1, 1, 2, 45, 46, 46}, 47));
+
+    }
+
+    public int[] searchMatrix(int[][] matrix, int target) {
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return new int[]{-1, -1};
+        }
+        int r = 0;
+        int c = matrix[0].length - 1;
+        while (r < matrix.length && c >= 0) {
+            if (matrix[r][c] == target) {
+                return new int[]{r, c};
+            }
+            if (matrix[r][c] > target) {
+                c--;
+            } else {
+                // matrix[r][c] < target
+                r++;
+            }
+        }
+        return new int[]{-1, -1};
     }
 
     public static class RandomNode {
@@ -189,6 +231,16 @@ public class Amazon {
 
         public ListNode(int val) {
             this.val = val;
+        }
+    }
+
+    public static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode(int x) {
+            val = x;
         }
     }
 }
