@@ -4,8 +4,8 @@ class Sol54 {
 
     fun spiralOrder(
         m: Array<IntArray>,
-        rows: IntRange = 0 until m.size,
-        cols: IntRange = if (m.isEmpty()) IntRange.EMPTY else 0 until m[0].size
+        rows: IntRange = m.indices,
+        cols: IntRange = if (m.isEmpty()) IntRange.EMPTY else m[0].indices
     ): List<Int> {
         val res = ArrayList<Int>()
         when {
@@ -13,11 +13,11 @@ class Sol54 {
             }
             rows.len == 1 -> {
                 val (s, e) = cols
-                for (i in s..e) res.add(m[rows.start][i])
+                for (i in s..e) res.add(m[rows.first][i])
             }
             cols.len == 1 -> {
                 val (s, e) = rows
-                for (i in s..e) res.add(m[i][cols.start])
+                for (i in s..e) res.add(m[i][cols.first])
             }
             else -> {
                 val (rs, re) = rows
@@ -33,7 +33,7 @@ class Sol54 {
         return res
     }
 
-    val IntRange.len: Int get() = endInclusive - start + 1
+    private val IntRange.len: Int get() = endInclusive - start + 1
     operator fun IntRange.component1() = start
     operator fun IntRange.component2() = endInclusive
 }

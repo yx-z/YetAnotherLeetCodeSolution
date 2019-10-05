@@ -195,10 +195,6 @@ public class Amazon {
         return isSameTree(s.left, t.left) && isSameTree(s.right, t.right);
     }
 
-    public static void main(String[] args) {
-
-    }
-
     public int[] searchMatrix(int[][] matrix, int target) {
         if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
             return new int[]{-1, -1};
@@ -217,6 +213,10 @@ public class Amazon {
             }
         }
         return new int[]{-1, -1};
+    }
+
+    public static void main(String[] args) {
+
     }
 
     public static class RandomNode {
