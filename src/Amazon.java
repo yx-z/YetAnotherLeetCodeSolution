@@ -17,27 +17,41 @@ public class Amazon {
 
         // <song, genre>
         Map<String, String> songGenre = new HashMap<>();
-        genreSongs.forEach((genre, songs) ->
-                songs.forEach(song -> songGenre.put(song, genre))
-        );
+        for (Map.Entry<String, List<String>> entry : genreSongs.entrySet()) {
+            String genre = entry.getKey();
+            List<String> songs = entry.getValue();
+            for (String song : songs) {
+                songGenre.put(song, genre);
+            }
+        }
 
         // <user, [genres]>
         Map<String, List<String>> userGenres = new HashMap<>();
-        userSongs.forEach((user, songs) -> {
+        for (Map.Entry<String, List<String>> entry : userSongs.entrySet()) {
+            String user = entry.getKey();
+            List<String> songs = entry.getValue();
             userGenres.put(user, new ArrayList<>());
 
             // <genre, count>
             Map<String, Integer> count = new HashMap<>();
-            final int[] max = new int[]{0};
-            songs.stream().filter(songGenre::containsKey).map(songGenre::get)
-                    .forEach(genre -> {
-                        count.put(genre, count.getOrDefault(genre, 0) + 1);
-                        max[0] = Math.max(max[0], count.get(genre));
-                    });
+            int maxFreq = 0;
 
-            count.entrySet().stream().filter(e -> e.getValue() == max[0])
-                    .forEach(e -> userGenres.get(user).add(e.getKey()));
-        });
+            for (String song : songs) {
+                if (songGenre.containsKey(song)) {
+                    String genre = songGenre.get(song);
+                    count.put(genre, count.getOrDefault(genre, 0) + 1);
+                    maxFreq = Math.max(maxFreq, count.get(genre));
+                }
+            }
+
+            for (Map.Entry<String, Integer> genreFreq : count.entrySet()) {
+                String genre = genreFreq.getKey();
+                int freq = genreFreq.getValue();
+                if (freq == maxFreq) {
+                    userGenres.get(user).add(genre);
+                }
+            }
+        }
         return userGenres;
     }
 
@@ -96,7 +110,87 @@ public class Amazon {
         }
     }
 
-    public static void main(String[] args) {
+    public static int twoSum(int[] nums, int target) {
+        // <num, counted in result>
+        Map<Integer, Boolean> seen = new HashMap<>();
+        int res = 0;
+        for (int num : nums) {
+            int counterpart = target - num;
+            if (seen.containsKey(counterpart)) {
+                if (!seen.get(counterpart)) {
+                    res++;
+                    seen.put(counterpart, true);
+                }
+                seen.put(num, true);
+            } else {
+                seen.put(num, false);
+            }
+        }
+        return res;
+    }
 
+    public static RandomNode copyRandomList(RandomNode head) {
+        Map<RandomNode, RandomNode> srcToCopy = new HashMap<>();
+        RandomNode curr = head;
+        while (curr != null) {
+            RandomNode copy = new RandomNode();
+            copy.val = curr.val;
+            srcToCopy.put(curr, copy);
+            curr = curr.next;
+        }
+        curr = head;
+        while (curr != null) {
+            RandomNode copy = srcToCopy.get(curr);
+            copy.next = srcToCopy.get(curr.next);
+            copy.random = srcToCopy.get(curr.random);
+            curr = curr.next;
+        }
+        return srcToCopy.get(head);
+    }
+
+    public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(-1);
+        ListNode pre = dummy;
+        while (l1 != null && l2 != null) {
+            if (l1.val < l2.val) {
+                pre.next = l1;
+                l1 = l1.next;
+            } else {
+                pre.next = l2;
+                l2 = l2.next;
+            }
+            pre = pre.next;
+        }
+        ListNode rem = l1;
+        if (rem == null) {
+            rem = l2;
+        }
+        while (rem != null) {
+            pre.next = rem;
+            rem = rem.next;
+            pre = pre.next;
+        }
+        return dummy.next;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(twoSum(new int[]{1, 1, 2, 45, 46, 46}, 47));
+    }
+
+    public static class RandomNode {
+        int val;
+        RandomNode next;
+        RandomNode random;
+    }
+
+    public static class ListNode {
+        int val;
+        ListNode next;
+
+        public ListNode(int val) {
+            this.val = val;
+        }
     }
 }
+
+
