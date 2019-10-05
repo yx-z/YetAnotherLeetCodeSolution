@@ -3,7 +3,7 @@ package median
 class Sol240 {
 
     fun searchMatrix(matrix: Array<IntArray>, target: Int): Boolean {
-        if (matrix.isEmpty()) {
+        if (matrix.isEmpty() || matrix.any { it.isEmpty() }) {
             return false
         }
 
@@ -20,6 +20,7 @@ class Sol240 {
                 else -> colIdx++
             }
         }
+
         return false
     }
 }
