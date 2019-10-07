@@ -30,9 +30,9 @@ class Sol123 {
             //                  and do something (varies by case)
             P[i][0][1] = max(P[i - 1][0][1], -prices[i])
             for (j in 1..maxTransactions) {
-                // rest or buy
-                P[i][j][0] = max(P[i - 1][j][0], P[i - 1][j - 1][1] + prices[i])
                 // rest or sell
+                P[i][j][0] = max(P[i - 1][j][0], P[i - 1][j - 1][1] + prices[i])
+                // rest or buy
                 P[i][j][1] = max(P[i - 1][j][1], P[i - 1][j][0] - prices[i])
             }
         }
