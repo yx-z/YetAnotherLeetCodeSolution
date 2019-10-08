@@ -2,14 +2,6 @@ package median
 
 import java.util.*
 
-fun main() {
-    println(
-        Sol503().nextGreaterElements(
-            intArrayOf(5, 4, 3, 2, 1)
-        ).contentToString()
-    )
-}
-
 class Sol503 {
 
     fun nextGreaterElements(nums: IntArray): IntArray {
