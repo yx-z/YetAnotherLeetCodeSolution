@@ -16,7 +16,7 @@ class Sol410 {
             dp[j - 1][j] = max(dp[j - 2][j - 1], ns[j - 1])
             for (i in j until n) {
                 // find a cut k in j - 2 until i : split ns[0..k] into j - 1
-                // chunks and ns[k + 1. .i] into the j-th chunk : minimizes
+                // chunks and ns[k + 1..i] into the j-th chunk : minimizes
                 // the max subarray sum and store it in dp[i][j]
                 dp[i][j] = (j - 2 until i)
                     .map { k -> max(dp[k][j - 1], dp[i][1] - dp[k][1]) }.min()!!
