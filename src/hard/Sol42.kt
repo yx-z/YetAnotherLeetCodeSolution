@@ -1,5 +1,6 @@
 package hard
 
+import kotlin.math.max
 import kotlin.math.min
 
 class Sol42 {
@@ -21,6 +22,28 @@ class Sol42 {
         for (i in 1 until n - 1) {
             if (left[i] != i && rigt[i] != i) {
                 area += min(height[left[i]], height[rigt[i]]) - height[i]
+            }
+        }
+        return area
+    }
+
+    fun redo(height: IntArray): Int {
+        val n = height.size
+        if (n <= 2) return 0
+        var area = 0
+        var left = 0
+        var right = n - 1
+        var lMax = 0
+        var rMax = 0
+        while (left <= right) {
+            lMax = max(lMax, height[left])
+            rMax = max(rMax, height[right])
+            if (lMax <= rMax) {
+                area += lMax - height[left]
+                left++
+            } else {
+                area += rMax - height[right]
+                right--
             }
         }
         return area
