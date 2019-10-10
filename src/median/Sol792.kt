@@ -18,10 +18,4 @@ class Sol792 {
         }
         return false
     }
-
-    fun redo(S: String, words: Array<String>) {
-        val n = words.size
-        val indices = IntArray(n)
-
-    }
 }
