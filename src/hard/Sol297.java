@@ -5,13 +5,6 @@ import java.util.stream.Collectors;
 
 public class Sol297 {
 
-    public static void main(String[] args) {
-        TreeNode root = new TreeNode(1);
-        root.right = new TreeNode(2);
-        root.right.left = new TreeNode(3);
-        System.out.println(new Codec().serialize(root));
-    }
-
     // preorder, recursive, dfs
     static class Codec {
 

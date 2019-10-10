@@ -2,10 +2,6 @@ package easy
 
 import kotlin.math.min
 
-fun main() {
-    println(Sol697().onePass(intArrayOf(1, 2, 2, 3, 1)))
-}
-
 class Sol697 {
 
     fun findShortestSubArray(nums: IntArray): Int {
