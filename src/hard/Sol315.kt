@@ -1,11 +1,5 @@
 package hard
 
-import java.util.*
-
-fun main() {
-    println(Sol315().countSmaller(intArrayOf(5, 2, 6, 1)))
-}
-
 class Sol315 {
 
     fun countSmaller(ns: IntArray): List<Int> {
