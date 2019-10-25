@@ -3,12 +3,14 @@ package median
 class Sol31 {
 
     fun nextPermutation(nums: IntArray) {
+        // setup
         val n = nums.size
         val swap = { i: Int, j: Int ->
             val tmp = nums[i]
             nums[i] = nums[j]
             nums[j] = tmp
         }
+        // find pivot
         var p = -1
         for (i in n - 1 downTo 1) {
             if (nums[i - 1] < nums[i]) {
@@ -16,6 +18,7 @@ class Sol31 {
                 break
             }
         }
+        // find smallest number greater than pivot
         if (p != -1) {
             var x = 0
             for (i in n - 1 downTo 0) {
@@ -26,6 +29,7 @@ class Sol31 {
             }
             swap(p, x)
         }
+        // reverse right of pivot
         var s = p + 1
         var e = n - 1
         while (s < e) {
