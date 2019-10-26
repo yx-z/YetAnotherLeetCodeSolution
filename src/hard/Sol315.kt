@@ -3,7 +3,7 @@ package hard
 class Sol315 {
 
     fun countSmaller(ns: IntArray): List<Int> {
-        val smaller = IntArray(ns.size)
+        val smaller = ArrayList<Int>().apply { repeat(ns.size) { this.add(0) } }
         fun mergeSort(ps: MutableList<IndexedValue<Int>>): List<IndexedValue<Int>> {
             if (ps.size <= 1) return ps
             val mid = ps.size / 2
@@ -24,6 +24,6 @@ class Sol315 {
             return ps
         }
         mergeSort(ns.withIndex().toMutableList())
-        return smaller.toList()
+        return smaller
     }
 }
