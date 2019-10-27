@@ -22,4 +22,26 @@ class Sol145 {
         }
         return res.reversed()
     }
+
+    fun redo(root: TreeNode?): List<Int> {
+        if (root == null) return emptyList()
+        var curr = root
+        val res = ArrayList<Int>()
+        val stack = Stack<TreeNode>()
+        while (true) {
+            while (curr != null) {
+                stack.push(curr)
+                stack.push(curr)
+                curr = curr.left
+            }
+            if (stack.isEmpty()) return res
+            curr = stack.pop()
+            curr = if (stack.isNotEmpty() && stack.peek() == curr) {
+                curr.right
+            } else {
+                res.add(curr.`val`)
+                null
+            }
+        }
+    }
 }

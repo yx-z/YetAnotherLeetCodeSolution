@@ -1,6 +1,7 @@
 package median
 
 import java.util.*
+import kotlin.collections.ArrayList
 
 class Sol144 {
     class TreeNode(var `val`: Int) {
@@ -27,5 +28,31 @@ class Sol144 {
             }
         }
         return ls
+    }
+
+    fun redo(root: TreeNode?): List<Int> {
+        val res = ArrayList<Int>()
+        var curr = root
+        while (curr != null) {
+            if (curr.left == null) {
+                res.add(curr.`val`)
+                curr = curr.right
+            } else {
+                var pre = curr.left!!
+                while (pre.right != null && pre.right != curr) {
+                    pre = pre.right!!
+                }
+                if (pre.right == null) {
+                    res.add(curr.`val`)
+                    pre.right = curr
+                    curr = curr.left // go left
+                } else {
+                    // pre.right == curr
+                    pre.right = null
+                    curr = curr.right // go right
+                }
+            }
+        }
+        return res
     }
 }

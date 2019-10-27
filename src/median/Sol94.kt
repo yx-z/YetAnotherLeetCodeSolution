@@ -27,4 +27,30 @@ class Sol94 {
         }
         return res
     }
+
+    fun redo(root: TreeNode?): List<Int> {
+        val res = ArrayList<Int>()
+        var curr = root
+        while (curr != null) {
+            if (curr.left == null) {
+                res.add(curr.`val`)
+                curr = curr.right
+            } else {
+                var pre = curr.left!!
+                while (pre.right != null && pre.right != curr) {
+                    pre = pre.right!!
+                }
+                if (pre.right == null) {
+                    pre.right = curr
+                    curr = curr.left // go left
+                } else {
+                    // pre.right == curr
+                    pre.right = null // restore original tree structure
+                    res.add(curr.`val`)
+                    curr = curr.right // go right
+                }
+            }
+        }
+        return res
+    }
 }
