@@ -1,9 +1,9 @@
 package google;
 
-public class Main {
+public class Maze {
+    // TODO
 
     public static void main(String[] args) {
 
     }
 }
-
