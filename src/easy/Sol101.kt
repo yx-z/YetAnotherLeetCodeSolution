@@ -11,9 +11,7 @@ class Sol101 {
         if (root == null && other == null) return true
         if (root == null || other == null) return false
         if (root.`val` != other.`val`) return false
-        return isSymmetric(root.left, other.right) && isSymmetric(
-            root.right,
-            other.left
-        )
+        return isSymmetric(root.left, other.right) &&
+                isSymmetric(root.right, other.left)
     }
 }

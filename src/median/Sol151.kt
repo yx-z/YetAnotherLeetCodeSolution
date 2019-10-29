@@ -2,9 +2,10 @@ package median
 
 class Sol151 {
 
-    fun reverseWords(s: String) = s.trim().split(' ')
-        .filter { it.isNotEmpty() }.reversed().joinToString(" ")
+    fun reverseWords(s: String) = // O(n) space
+        s.split(' ').filter { it.isNotEmpty() }.reversed().joinToString(" ")
 
+    // O(1) space: if input is char array, we can do everything in-place
     fun redo(s: String): String {
         val n = s.length
         val ca = s.toCharArray()
