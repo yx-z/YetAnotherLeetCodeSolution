@@ -16,6 +16,7 @@ public class Sol297 {
                     + "," + serialize(root.right);
         }
 
+        // O(n)
         public TreeNode deserialize(String data) {
             return des(new LinkedList<>(Arrays.asList(data.split(","))));
         }
@@ -68,6 +69,7 @@ public class Sol297 {
             return String.join(",", res);
         }
 
+        // O(n)
         public TreeNode deserialize(String data) {
             List<TreeNode> nodes = Arrays.stream(data.split(",")).map(src -> {
                 if (src.equals("#")) return null;

@@ -1,7 +1,7 @@
 package median;
 
 import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.stream.Collectors;
 
 public class Sol449 {
@@ -39,26 +39,21 @@ public class Sol449 {
                 return null;
             }
             String[] split = data.split(",");
-            return deserialize(Arrays.stream(split)
-                            .map(Integer::parseInt)
-                            .collect(Collectors.toList()),
-                    Integer.MIN_VALUE, Integer.MAX_VALUE,
-                    0, split.length - 1);
+            return deserialize(new LinkedList<>(
+                            Arrays.stream(split).map(Integer::parseInt)
+                                    .collect(Collectors.toList())),
+                    Integer.MIN_VALUE, Integer.MAX_VALUE);
         }
 
-        private TreeNode deserialize(List<Integer> data,
-                                     int lo, int hi, int start, int end) {
-            if (end < start) {
-                return null;
-            }
-            int rootVal = data.get(start);
+        // O(n)
+        private TreeNode deserialize(LinkedList<Integer> data, int lo, int hi) {
+            if (data.isEmpty()) return null;
+            int rootVal = data.get(0);
+            if (rootVal > hi || rootVal < lo) return null;
+            data.removeFirst();
             TreeNode root = new TreeNode(rootVal);
-            int i = start + 1;
-            while (i <= end && data.get(i) < rootVal) {
-                i++;
-            }
-            root.left = deserialize(data, lo, rootVal, start + 1, i - 1);
-            root.right = deserialize(data, rootVal, hi, i, end);
+            root.left = deserialize(data, lo, rootVal);
+            root.right = deserialize(data, rootVal, hi);
             return root;
         }
     }
