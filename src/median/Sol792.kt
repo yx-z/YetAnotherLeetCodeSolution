@@ -4,8 +4,13 @@ import java.util.*
 
 class Sol792 {
 
+    // O((len(S) + len(word)) * len(words))
     fun numMatchingSubseq(S: String, words: Array<String>) =
         words.count { isSubsequence(it, S) }
+    // if we use redo() in Sol392, and preprocess S that takes
+    // O(len(S) * log len(S)), the total time will be
+    // O(len(word) * log len(S) * len(words))
+
 
     // Sol392
     fun isSubsequence(s: String, t: String): Boolean {
