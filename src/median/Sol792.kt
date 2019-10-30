@@ -1,5 +1,7 @@
 package median
 
+import java.util.*
+
 class Sol792 {
 
     fun numMatchingSubseq(S: String, words: Array<String>) =
@@ -17,5 +19,21 @@ class Sol792 {
             ti++
         }
         return false
+    }
+
+    fun redo(S: String, words: Array<String>): Int {
+        val wordMap = ('a'..'z').associateWith { LinkedList<String>() }
+        words.forEach { wordMap.getValue(it[0]).add(it) }
+        var count = 0
+        for (c in S) {
+            val matchQueue = wordMap.getValue(c)
+            val size = matchQueue.size
+            repeat(size) {
+                val currWord = matchQueue.removeFirst()
+                if (currWord.length == 1) count++
+                else wordMap.getValue(currWord[1]).addLast(currWord.substring(1))
+            }
+        }
+        return count
     }
 }

@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SubstrSubseq {
+public class FormStr {
 
     public static int formStrSubseq(@NotNull String source,
                                     @NotNull String target) {
