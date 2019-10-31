@@ -36,4 +36,21 @@ class Sol2 {
         res.next = nex
         return res
     }
+
+    fun redo(l1: ListNode?, l2: ListNode?): ListNode {
+        val head = ListNode(0)
+        var cur1 = l1
+        var cur2 = l2
+        var curRes = head
+        var carry = 0
+        while (cur1 != null || cur2 != null || carry > 0) {
+            val val1 = cur1?.`val`.apply { cur1 = cur1?.next } ?: 0
+            val val2 = cur2?.`val`.apply { cur2 = cur2?.next } ?: 0
+            (val1 + val2 + carry).also {
+                curRes = ListNode(it % 10).apply { curRes.next = this }
+                carry = it / 10
+            }
+        }
+        return head.next ?: head
+    }
 }

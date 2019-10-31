@@ -2,6 +2,7 @@ package google;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,40 @@ public class FormStr {
                 return -1;
             }
             j = curJ + 1;
+            count++;
+        }
+        return count;
+    }
+
+    public int shortestWay(String source, String target) {
+        char[] s = source.toCharArray();
+        int m = s.length;
+        int[][] dp = new int[m][26];
+        // dp[i][j] = min index in source[i+1..m-1] : source[index] == 'a' + j
+        Arrays.fill(dp[m - 1], -1); // -1 means no that char in source
+        dp[m - 1][s[m - 1] - 'a'] = m - 1;
+        for (int x = m - 2; x >= 0; x--) {
+            dp[x] = Arrays.copyOf(dp[x + 1], 26);
+            dp[x][s[x] - 'a'] = x;
+        }
+        int count = 0;
+        int idx = 0;
+        for (char c : target.toCharArray()) {
+            int j = c - 'a';
+            if (dp[0][j] == -1) {
+                return -1;
+            }
+            if (dp[idx][j] == -1) {
+                count++;
+                idx = 0;
+            }
+            idx = dp[idx][j] + 1;
+            if (idx == m) {
+                count++;
+                idx = 0;
+            }
+        }
+        if (idx > 0) {
             count++;
         }
         return count;

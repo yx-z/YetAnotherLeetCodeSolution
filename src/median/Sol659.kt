@@ -6,7 +6,11 @@ import kotlin.math.min
 class Sol659 {
 
     fun isPossible(ns: IntArray): Boolean {
+        // <num, # of remaining occurrences of num>
         val freq = ns.toList().groupingBy { it }.eachCount().toMutableMap()
+        // <num, # of sequences that we can continue/extend, starting at num>
+        // i.e. we have a sequence (...,), num - 3, num - 2, num - 1, so we can
+        // we can append num in such sequence
         val extend = HashMap<Int, Int>()
         ns.forEach {
             if (freq[it]!! > 0) {
