@@ -30,6 +30,7 @@ class Sol144 {
         return ls
     }
 
+    // morris
     fun redo(root: TreeNode?): List<Int> {
         val res = ArrayList<Int>()
         var curr = root

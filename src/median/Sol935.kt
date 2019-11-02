@@ -1,9 +1,11 @@
 package median
 
+import kotlin.math.pow
+
 class Sol935 {
     val BASE = 10
     val RANGE = 0 until BASE
-    val MOD = Math.pow(10.0, 9.0).toInt() + 7
+    val MOD = 10.0.pow(9.0).toInt() + 7
     val DIRS = arrayOf(
         intArrayOf(4, 6), intArrayOf(6, 8), intArrayOf(7, 9), intArrayOf(4, 8),
         intArrayOf(0, 3, 9), intArrayOf(), intArrayOf(0, 1, 7),

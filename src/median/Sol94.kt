@@ -28,6 +28,7 @@ class Sol94 {
         return res
     }
 
+    // morris traversal
     fun redo(root: TreeNode?): List<Int> {
         val res = ArrayList<Int>()
         var curr = root
