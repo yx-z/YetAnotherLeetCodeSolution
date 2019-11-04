@@ -12,13 +12,12 @@ class Sol911 {
             // <id, freq>
             val freq = HashMap<Int, Int>()
             var maxFreq = 0
-            for ((i, t) in times.withIndex()) {
-                // id got a vote at time t
-                val id = persons[i]
-                freq[id] = (freq[id] ?: 0) + 1
-                if (freq[id]!! >= maxFreq) {
-                    maxFreq = freq[id]!!
-                    topCandidates[t] = id
+            for ((i, t) in persons.zip(times)) {
+                // i got a vote at time t
+                freq[i] = (freq[i] ?: 0) + 1
+                if (freq[i]!! >= maxFreq) {
+                    maxFreq = freq[i]!!
+                    topCandidates[t] = i
                 }
             }
         }
