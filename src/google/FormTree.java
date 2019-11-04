@@ -58,10 +58,9 @@ class Node {
             for (int i = 0; i < size; i++) {
                 Node cur = queue.remove();
                 if (i == 0) {
-                    res.append(cur.value);
-                } else {
-                    res.append(',').append(cur.value);
+                    res.append(',');
                 }
+                res.append(cur.value);
                 queue.addAll(cur.children);
             }
             res.append('\n');
