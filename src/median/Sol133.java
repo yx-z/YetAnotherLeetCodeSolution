@@ -1,4 +1,4 @@
-package google;
+package median;
 
 import java.util.ArrayList;
 import java.util.HashMap;
