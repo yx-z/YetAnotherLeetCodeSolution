@@ -23,4 +23,18 @@ class Sol114 {
             }
         }
     }
+
+    fun redo(root: TreeNode?) {
+        var cur: TreeNode? = root
+        while (cur != null) {
+            if (cur.left != null) {
+                var pre = cur.left!!
+                while (pre.right != null) pre = pre.right!!
+                pre.right = cur.right
+                cur.right = cur.left
+                cur.left = null
+            }
+            cur = cur.right
+        }
+    }
 }
