@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Maze {
-    private static Random rand = new Random();
+    private static final Random rand = new Random();
     private final int x;
     private final int y;
     private final int[][] maze;
