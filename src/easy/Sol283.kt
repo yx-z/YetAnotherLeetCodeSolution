@@ -3,18 +3,9 @@ package easy
 class Sol283 {
 
     fun moveZeroes(nums: IntArray) {
-        var slow = 0
-        while (slow < nums.size && nums[slow] != 0) slow++
-        // slow is at the first 0
-        var fast = slow + 1
-        while (fast < nums.size) {
-            if (nums[fast] == 0) fast++
-            else {
-                nums[slow] = nums[fast]
-                slow++
-                fast++
-            }
-        }
-        for (i in slow until nums.size) nums[i] = 0
+        var i = 0
+        // use asSequence to avoid creating intermediate O(n) filtered list
+        nums.asSequence().filter { it != 0 }.forEach { nums[i++] = it }
+        (i until nums.size).forEach { nums[it] = 0 }
     }
 }

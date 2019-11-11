@@ -1,5 +1,7 @@
 package google;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +10,7 @@ public class Splitwise {
 
     static int min = Integer.MAX_VALUE;
 
-    static int minTransaction(int[][] pays) {
+    static int minTransaction(@NotNull int[][] pays) {
         var account = new HashMap<Integer, Integer>();
         for (var transaction : pays) {
             var from = transaction[0];
@@ -21,7 +23,7 @@ public class Splitwise {
         return min;
     }
 
-    static void help(List<Integer> settles, int lo, int count) {
+    static void help(@NotNull List<Integer> settles, int lo, int count) {
         var n = settles.size();
         while (lo < n && settles.get(lo) == 0) {
             lo++;

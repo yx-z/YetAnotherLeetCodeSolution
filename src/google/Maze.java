@@ -1,5 +1,7 @@
 package google;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -26,7 +28,7 @@ public class Maze {
         return copy;
     }
 
-    private static void swap(Dir[] arr, int i, int j) {
+    private static void swap(@NotNull Dir[] arr, int i, int j) {
         var tmp = arr[i];
         arr[i] = arr[j];
         arr[j] = tmp;
