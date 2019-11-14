@@ -5,7 +5,6 @@ import java.util.*;
 public class ContainsCycle {
 
     static Set<Integer> visited = new HashSet<>();
-    static Set<Integer> active = new HashSet<>();
     static Map<Integer, List<Integer>> graph = null;
 
     static boolean containsCycle(Map<Integer, List<Integer>> map) {
@@ -16,12 +15,10 @@ public class ContainsCycle {
     static boolean hasCycle(int start, int parent) {
         if (visited.contains(start)) return false;
         visited.add(start);
-        active.add(start);
         for (var n : graph.get(start))
             if (visited.contains(n)) {
                 if (parent != n) return true;
             } else if (hasCycle(n, start)) return true;
-        active.remove(start);
         return false;
     }
 

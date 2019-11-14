@@ -12,9 +12,7 @@ public class UniqueLog {
         for (var log : logs) {
             var id1 = log[0];
             var id2 = log[1];
-            if (!(ids.contains(id1) || ids.contains(id2))) {
-                count++;
-            }
+            if (!(ids.contains(id1) || ids.contains(id2))) count++;
             ids.add(id1);
             ids.add(id2);
         }

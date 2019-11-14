@@ -2,7 +2,6 @@ package google;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,40 +34,6 @@ public class FormStr {
         return count;
     }
 
-    public int shortestWay(String source, String target) {
-        char[] s = source.toCharArray();
-        int m = s.length;
-        int[][] dp = new int[m][26];
-        // dp[i][j] = min index in source[i+1..m-1] : source[index] == 'a' + j
-        Arrays.fill(dp[m - 1], -1); // -1 means no that char in source
-        dp[m - 1][s[m - 1] - 'a'] = m - 1;
-        for (int x = m - 2; x >= 0; x--) {
-            dp[x] = Arrays.copyOf(dp[x + 1], 26);
-            dp[x][s[x] - 'a'] = x;
-        }
-        int count = 0;
-        int idx = 0;
-        for (char c : target.toCharArray()) {
-            int j = c - 'a';
-            if (dp[0][j] == -1) {
-                return -1;
-            }
-            if (dp[idx][j] == -1) {
-                count++;
-                idx = 0;
-            }
-            idx = dp[idx][j] + 1;
-            if (idx == m) {
-                count++;
-                idx = 0;
-            }
-        }
-        if (idx > 0) {
-            count++;
-        }
-        return count;
-    }
-
     public static int formStrSubstr(@NotNull String source,
                                     @NotNull String target) {
         SuffixNode root = build(source);
@@ -78,9 +43,7 @@ public class FormStr {
             curr = curr.children.get(c);
             if (curr == null) {
                 curr = root.children.get(c);
-                if (curr == null) {
-                    return -1;
-                }
+                if (curr == null) return -1;
                 count++;
             }
         }
@@ -94,14 +57,40 @@ public class FormStr {
             SuffixNode curr = root;
             for (int j = i; j < n; j++) {
                 char c = source.charAt(j);
-                if (!root.children.containsKey(c)) {
+                if (!root.children.containsKey(c))
                     root.children.put(c, new SuffixNode(c));
-                }
                 curr = root.children.get(c);
             }
             curr.isEnd = true;
         }
         return root;
+    }
+
+    public int shortestWay(@NotNull String source, @NotNull String target) {
+        int m = source.length();
+        // dp[i][j] = min idx in source[i until m] : source[idx] == j
+        Map[] dp = new HashMap[m];
+        dp[m - 1] = new HashMap<Character, Integer>();
+        dp[m - 1].put(source.charAt(m - 1), m - 1);
+        for (int i = m - 2; i >= 0; i--) {
+            dp[i] = new HashMap<Character, Integer>(dp[i + 1]);
+            dp[i].put(source.charAt(i), i);
+        }
+        int count = 0;
+        int idx = 0;
+        for (char c : target.toCharArray()) {
+            if (!dp[0].containsKey(c)) return -1;
+            if (!dp[idx].containsKey(c)) {
+                count++;
+                idx = 0;
+            }
+            idx = (int) dp[idx].get(c) + 1;
+            if (idx == m) {
+                count++;
+                idx = 0;
+            }
+        }
+        return count + (idx > 0 ? 1 : 0);
     }
 }
 
