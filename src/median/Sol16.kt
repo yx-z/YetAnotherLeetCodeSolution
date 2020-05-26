@@ -9,7 +9,7 @@ class Sol16 {
 		nums.sort()
 		var minDiff = Int.MAX_VALUE
 		var closestSum = -1
-		for (pivot in 0 until n) {
+		for (pivot in nums.indices) {
 			var lo = 0
 			var hi = n - 1
 			while (lo < hi) {
